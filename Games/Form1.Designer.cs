@@ -451,23 +451,23 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(13, 242);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(502, 82);
+            this.listBox1.Size = new System.Drawing.Size(502, 134);
             this.listBox1.TabIndex = 12;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(13, 330);
+            this.listBox2.Location = new System.Drawing.Point(12, 382);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(238, 82);
+            this.listBox2.Size = new System.Drawing.Size(238, 121);
             this.listBox2.TabIndex = 13;
             // 
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(257, 330);
+            this.listBox3.Location = new System.Drawing.Point(257, 382);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(258, 82);
+            this.listBox3.Size = new System.Drawing.Size(258, 121);
             this.listBox3.TabIndex = 14;
             // 
             // listBox4

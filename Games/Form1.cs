@@ -13,6 +13,11 @@ namespace Games
 
         private GamesDBEntities context = new GamesDBEntities();
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            UpdateCombobox();
+        }
+
         private void ButtonDevelopersAdd_Click(object sender, EventArgs e)
         {
             string developerName = TBDevelopername.Text;
@@ -22,12 +27,24 @@ namespace Games
             developer.Country = developerCountry;
             context.Developers.Add(developer);
             context.SaveChanges();
-            comboBox1.DataSource = (from q in context.Developers select q).ToList();
-            comboBox1.DisplayMember = "name";
+            UpdateCombobox();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void UpdateCombobox()
         {
+            comboBox3.DataSource = (from q in context.Games select q).ToList();
+            comboBox2.DataSource = (from q in context.Games select q).ToList();
+            comboBox2.DisplayMember = "Name";
+            comboBox3.DisplayMember = "Name";
+            comboBox4.DataSource = (from p in context.Players select p).ToList();
+            comboBox4.DisplayMember = "PNR";
+            comboBox1.DataSource = (from q in context.Developers select q).ToList();
+            comboBox1.DisplayMember = "name";
+            comboBox1.SelectedItem = null;
+            comboBox2.SelectedItem = null;
+            comboBox3.SelectedItem = null;
+            comboBox4.SelectedItem = null;
+            
 
         }
 
@@ -44,11 +61,9 @@ namespace Games
             TBGamesEAN.Clear();
             context.Games.Add(game);
             context.SaveChanges();
-            comboBox3.DataSource = (from q in context.Games select q).ToList();
-            comboBox2.DataSource = (from q in context.Games select q).ToList();
-            comboBox2.DisplayMember = "name";
-            comboBox3.DisplayMember = "name";
+            UpdateCombobox();
         }
+
         private void ButtonPlayersAdd_Click(object sender, EventArgs e)
         {
             string playerName = TBPlayersName.Text;
@@ -58,9 +73,7 @@ namespace Games
             player.PNR = playerPNR;
             context.Players.Add(player);
             context.SaveChanges();
-            comboBox4.DataSource = (from p in context.Players select p).ToList();
-            comboBox4.DisplayMember = "PNR";
-
+            UpdateCombobox();
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -70,7 +83,7 @@ namespace Games
             var fråga = from games in context.Games
                         where games.EAN == searchword
                         select games;
-            theGame = fråga.FirstOrDefault();
+            theGame = fråga.Single();
             if (theGame != null)
             {
                 textBox1.Text = "Name: " + theGame.Name + " EAN: " + theGame.EAN + " Release date: " + theGame.Release_date;
@@ -125,12 +138,11 @@ namespace Games
             {
                 listBox4.Items.Add(players.Name + " plays " + players.Games);
             }
-            
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            context.Games.Remove((Game)listBox1.SelectedValue);
+            context.Games.Remove((Game)listBox1.SelectedItem);
         }
     }
 }
