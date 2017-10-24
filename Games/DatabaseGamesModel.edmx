@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GamesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Develop">
+          <Key>
+            <PropertyRef Name="Name_of_Company" />
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="Name_of_Company" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Developers">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="EAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Release_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PNR" />
+          </Key>
+          <Property Name="PNR" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Playing">
+          <Key>
+            <PropertyRef Name="PNR" />
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="PNR" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="EAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Develop_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Develop" Type="Self.Develop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="EAN" />
+            </Principal>
+            <Dependent Role="Develop">
+              <PropertyRef Name="EAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Develop_Name">
+          <End Role="Developers" Type="Self.Developers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Develop" Type="Self.Develop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Developers">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Develop">
+              <PropertyRef Name="Name_of_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Playing_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Playing" Type="Self.Playing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="EAN" />
+            </Principal>
+            <Dependent Role="Playing">
+              <PropertyRef Name="EAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Playing_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Playing" Type="Self.Playing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="PNR" />
+            </Principal>
+            <Dependent Role="Playing">
+              <PropertyRef Name="PNR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GamesDBModelStoreContainer">
+          <EntitySet Name="Develop" EntityType="Self.Develop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Developers" EntityType="Self.Developers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playing" EntityType="Self.Playing" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Develop_Games" Association="Self.FK_Develop_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Develop" EntitySet="Develop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Develop_Name" Association="Self.FK_Develop_Name">
+            <End Role="Developers" EntitySet="Developers" />
+            <End Role="Develop" EntitySet="Develop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Playing_Games" Association="Self.FK_Playing_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Playing" EntitySet="Playing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Playing_Players" Association="Self.FK_Playing_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Playing" EntitySet="Playing" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GamesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.Develop" FromRole="Developers" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="EAN" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Release_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Developers" Relationship="Self.Develop" FromRole="Games" ToRole="Developers" />
+          <NavigationProperty Name="Players" Relationship="Self.Playing" FromRole="Games" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PNR" />
+          </Key>
+          <Property Name="PNR" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.Playing" FromRole="Players" ToRole="Games" />
+        </EntityType>
+        <Association Name="Develop">
+          <End Role="Games" Type="GamesDBModel.Game" Multiplicity="*" />
+          <End Role="Developers" Type="GamesDBModel.Developer" Multiplicity="*" />
+        </Association>
+        <Association Name="Playing">
+          <End Role="Games" Type="GamesDBModel.Game" Multiplicity="*" />
+          <End Role="Players" Type="GamesDBModel.Player" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GamesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Developers" EntityType="GamesDBModel.Developer" />
+          <EntitySet Name="Games" EntityType="GamesDBModel.Game" />
+          <EntitySet Name="Players" EntityType="GamesDBModel.Player" />
+          <AssociationSet Name="Develop" Association="Self.Develop">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Developers" EntitySet="Developers" />
+          </AssociationSet>
+          <AssociationSet Name="Playing" Association="Self.Playing">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GamesDBModelStoreContainer" CdmEntityContainer="GamesDBEntities">
+          <EntitySetMapping Name="Developers">
+            <EntityTypeMapping TypeName="GamesDBModel.Developer">
+              <MappingFragment StoreEntitySet="Developers">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="GamesDBModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="Release_date" ColumnName="Release_date" />
+                <ScalarProperty Name="EAN" ColumnName="EAN" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="GamesDBModel.Player">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="PNR" ColumnName="PNR" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Develop" TypeName="GamesDBModel.Develop" StoreEntitySet="Develop">
+            <EndProperty Name="Games">
+              <ScalarProperty Name="EAN" ColumnName="EAN" />
+            </EndProperty>
+            <EndProperty Name="Developers">
+              <ScalarProperty Name="Name" ColumnName="Name_of_Company" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Playing" TypeName="GamesDBModel.Playing" StoreEntitySet="Playing">
+            <EndProperty Name="Games">
+              <ScalarProperty Name="EAN" ColumnName="EAN" />
+            </EndProperty>
+            <EndProperty Name="Players">
+              <ScalarProperty Name="PNR" ColumnName="PNR" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
