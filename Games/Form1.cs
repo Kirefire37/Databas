@@ -49,8 +49,6 @@ namespace Games
             comboBox2.SelectedItem = null;
             comboBox3.SelectedItem = null;
             comboBox4.SelectedItem = null;
-            
-
         }
 
         private void ButtonGamesAdd_Click(object sender, EventArgs e)
