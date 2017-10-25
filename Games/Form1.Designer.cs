@@ -66,13 +66,16 @@
             this.buttonShowAll = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            this.listBox5 = new System.Windows.Forms.ListBox();
+            this.LBGames = new System.Windows.Forms.ListBox();
+            this.LBDevelopers = new System.Windows.Forms.ListBox();
+            this.LBPlayers = new System.Windows.Forms.ListBox();
+            this.LBPlaying = new System.Windows.Forms.ListBox();
+            this.LBPDevelopedBy = new System.Windows.Forms.ListBox();
             this.TBSearchWord = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.GBGames.SuspendLayout();
             this.GBDevelopers.SuspendLayout();
             this.GBPlayers.SuspendLayout();
@@ -305,7 +308,7 @@
             this.GBDevelop.Controls.Add(this.label12);
             this.GBDevelop.Location = new System.Drawing.Point(634, 13);
             this.GBDevelop.Name = "GBDevelop";
-            this.GBDevelop.Size = new System.Drawing.Size(200, 153);
+            this.GBDevelop.Size = new System.Drawing.Size(201, 153);
             this.GBDevelop.TabIndex = 3;
             this.GBDevelop.TabStop = false;
             this.GBDevelop.Text = "Develop";
@@ -418,7 +421,7 @@
             // 
             // buttonShowAll
             // 
-            this.buttonShowAll.Location = new System.Drawing.Point(246, 186);
+            this.buttonShowAll.Location = new System.Drawing.Point(12, 217);
             this.buttonShowAll.Name = "buttonShowAll";
             this.buttonShowAll.Size = new System.Drawing.Size(75, 23);
             this.buttonShowAll.TabIndex = 6;
@@ -428,90 +431,121 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(327, 186);
+            this.buttonDelete.Location = new System.Drawing.Point(219, 198);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(93, 23);
+            this.buttonDelete.Size = new System.Drawing.Size(64, 23);
             this.buttonDelete.TabIndex = 7;
-            this.buttonDelete.Text = "Delete selected";
+            this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(533, 185);
+            this.buttonSearch.Location = new System.Drawing.Point(326, 172);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(75, 20);
             this.buttonSearch.TabIndex = 8;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // listBox1
+            // LBGames
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 242);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(502, 134);
-            this.listBox1.TabIndex = 12;
+            this.LBGames.FormattingEnabled = true;
+            this.LBGames.Location = new System.Drawing.Point(13, 258);
+            this.LBGames.Name = "LBGames";
+            this.LBGames.Size = new System.Drawing.Size(502, 212);
+            this.LBGames.TabIndex = 12;
             // 
-            // listBox2
+            // LBDevelopers
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(12, 382);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(238, 121);
-            this.listBox2.TabIndex = 13;
+            this.LBDevelopers.FormattingEnabled = true;
+            this.LBDevelopers.Location = new System.Drawing.Point(12, 496);
+            this.LBDevelopers.Name = "LBDevelopers";
+            this.LBDevelopers.Size = new System.Drawing.Size(238, 121);
+            this.LBDevelopers.TabIndex = 13;
             // 
-            // listBox3
+            // LBPlayers
             // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(257, 382);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(258, 121);
-            this.listBox3.TabIndex = 14;
+            this.LBPlayers.FormattingEnabled = true;
+            this.LBPlayers.Location = new System.Drawing.Point(256, 496);
+            this.LBPlayers.Name = "LBPlayers";
+            this.LBPlayers.Size = new System.Drawing.Size(258, 121);
+            this.LBPlayers.TabIndex = 14;
             // 
-            // listBox4
+            // LBPlaying
             // 
-            this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(521, 242);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(180, 173);
-            this.listBox4.TabIndex = 15;
+            this.LBPlaying.FormattingEnabled = true;
+            this.LBPlaying.Location = new System.Drawing.Point(521, 258);
+            this.LBPlaying.Name = "LBPlaying";
+            this.LBPlaying.Size = new System.Drawing.Size(180, 212);
+            this.LBPlaying.TabIndex = 15;
             // 
-            // listBox5
+            // LBPDevelopedBy
             // 
-            this.listBox5.FormattingEnabled = true;
-            this.listBox5.Location = new System.Drawing.Point(707, 242);
-            this.listBox5.Name = "listBox5";
-            this.listBox5.Size = new System.Drawing.Size(183, 173);
-            this.listBox5.TabIndex = 16;
+            this.LBPDevelopedBy.FormattingEnabled = true;
+            this.LBPDevelopedBy.Location = new System.Drawing.Point(707, 258);
+            this.LBPDevelopedBy.Name = "LBPDevelopedBy";
+            this.LBPDevelopedBy.Size = new System.Drawing.Size(183, 212);
+            this.LBPDevelopedBy.TabIndex = 16;
             // 
             // TBSearchWord
             // 
-            this.TBSearchWord.Location = new System.Drawing.Point(427, 188);
+            this.TBSearchWord.Location = new System.Drawing.Point(220, 172);
             this.TBSearchWord.Name = "TBSearchWord";
             this.TBSearchWord.Size = new System.Drawing.Size(100, 20);
             this.TBSearchWord.TabIndex = 9;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(615, 188);
+            this.textBox1.Location = new System.Drawing.Point(415, 172);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(408, 20);
             this.textBox1.TabIndex = 17;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 242);
+            this.label15.Margin = new System.Windows.Forms.Padding(0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(43, 13);
+            this.label15.TabIndex = 18;
+            this.label15.Text = "Games:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 480);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(64, 13);
+            this.label16.TabIndex = 19;
+            this.label16.Text = "Developers:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(253, 480);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(44, 13);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "Players:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 518);
+            this.ClientSize = new System.Drawing.Size(1055, 686);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.listBox5);
-            this.Controls.Add(this.listBox4);
-            this.Controls.Add(this.listBox3);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.LBPDevelopedBy);
+            this.Controls.Add(this.LBPlaying);
+            this.Controls.Add(this.LBPlayers);
+            this.Controls.Add(this.LBDevelopers);
+            this.Controls.Add(this.LBGames);
             this.Controls.Add(this.TBSearchWord);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.buttonDelete);
@@ -579,13 +613,16 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ListBox listBox3;
-        private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.ListBox listBox5;
+        private System.Windows.Forms.ListBox LBGames;
+        private System.Windows.Forms.ListBox LBDevelopers;
+        private System.Windows.Forms.ListBox LBPlayers;
+        private System.Windows.Forms.ListBox LBPlaying;
+        private System.Windows.Forms.ListBox LBPDevelopedBy;
         private System.Windows.Forms.TextBox TBSearchWord;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }
 

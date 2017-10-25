@@ -23,15 +23,19 @@ namespace Games
             string developerName = TBDevelopername.Text;
             string developerCountry = TBDeveloperCountry.Text;
             Developer developer = new Developer();
+            //Skapar en ny developer av klassen developer
             developer.Name = developerName;
             developer.Country = developerCountry;
+            //Ger värden till det nya objektet 
             context.Developers.Add(developer);
             context.SaveChanges();
+            //Lägger till det nya objektet i databasen och sparar
             UpdateCombobox();
         }
 
         private void UpdateCombobox()
         {
+            //Får combobox:arna att visa objekten i databasen
             comboBox3.DataSource = (from q in context.Games select q).ToList();
             comboBox2.DataSource = (from q in context.Games select q).ToList();
             comboBox2.DisplayMember = "Name";
@@ -40,6 +44,7 @@ namespace Games
             comboBox4.DisplayMember = "PNR";
             comboBox1.DataSource = (from q in context.Developers select q).ToList();
             comboBox1.DisplayMember = "name";
+            //Combobox:arna har inget skrivet i dem från början
             comboBox1.SelectedItem = null;
             comboBox2.SelectedItem = null;
             comboBox3.SelectedItem = null;
@@ -54,13 +59,16 @@ namespace Games
             string EAN = TBGamesEAN.Text;
             DateTime releaseDate = datetimeGamesReleasedate.Value;
             Game game = new Game();
+            //Skapar ett "game" av klassen Game
             game.Name = gameName;
             game.EAN = EAN;
             game.Release_date = releaseDate;
+            //Ger objektet värden
             TBGamename.Clear();
             TBGamesEAN.Clear();
             context.Games.Add(game);
             context.SaveChanges();
+            //Lägger till objektet i databasen och sparar
             UpdateCombobox();
         }
 
@@ -69,10 +77,13 @@ namespace Games
             string playerName = TBPlayersName.Text;
             string playerPNR = TBPlayersPNR.Text;
             Player player = new Player();
+            //Skapar en "player" av klassen Player
             player.Name = playerName;
             player.PNR = playerPNR;
+            //Ger objektet värden
             context.Players.Add(player);
             context.SaveChanges();
+            //Lägger till objektet i databasen och sparar
             UpdateCombobox();
         }
 
@@ -80,10 +91,11 @@ namespace Games
         {
             Game theGame;
             string searchword = TBSearchWord.Text;
-            var fråga = from games in context.Games
-                        where games.EAN == searchword
-                        select games;
-            theGame = fråga.Single();
+            var question = from game in context.Games
+                        where game.EAN == searchword
+                        select game;
+            theGame = question.FirstOrDefault();
+            //Frågar databasen om det finns något objekt som har samma EAN som searchword och ger isåfall det värdet till thegame
             if (theGame != null)
             {
                 textBox1.Text = "Name: " + theGame.Name + " EAN: " + theGame.EAN + " Release date: " + theGame.Release_date;
@@ -100,8 +112,7 @@ namespace Games
             var q = from a in context.Developers
                     where a.Name == developer.Name
                     select a;
-
-            q.Single().Games.Add((Game)comboBox2.SelectedItem);
+            q.First().Games.Add((Game)comboBox2.SelectedItem);
 
             context.SaveChanges();
         }
@@ -114,35 +125,55 @@ namespace Games
                     select a;
             q.Single().Games.Add((Game)comboBox3.SelectedItem);
             context.SaveChanges();
+            foreach (var players in context.Players)
+            {
+                LBPlaying.Items.Add(players.Name + " plays " + players.Games.FirstOrDefault().Name);
+            }
         }
         private void buttonShowAll_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-            listBox3.Items.Clear();
-            listBox4.Items.Clear();
-            listBox5.Items.Clear();
+            LBGames.Items.Clear();
+            LBDevelopers.Items.Clear();
+            LBPlayers.Items.Clear();
+            LBPlaying.Items.Clear();
+            LBPDevelopedBy.Items.Clear();
+            //Skriver ut all data i databasen i listor
             foreach (var games in context.Games)
             {
-                listBox1.Items.Add("Name:   " + games.Name + "  EAN: " + games.EAN + "    Release date: " + games.Release_date);
+                LBGames.Items.Add("Name:   " + games.Name + "  EAN: " + games.EAN + "    Release date: " + games.Release_date);
             }
             foreach (var dev in context.Developers)
             {
-                listBox2.Items.Add(dev.Name + " from " + dev.Country);
+                LBDevelopers.Items.Add(dev.Name + " from " + dev.Country);
             }
             foreach (var player in context.Players)
             {
-                listBox3.Items.Add("Name:   " + player.Name+ "  Player PNR:  " + player.PNR);
-            }
-            foreach(var players in context.Players)
-            {
-                listBox4.Items.Add(players.Name + " plays " + players.Games);
+                LBPlayers.Items.Add("Name:   " + player.Name+ "  Player PNR:  " + player.PNR);
             }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            context.Games.Remove((Game)listBox1.SelectedItem);
+            string remove = TBSearchWord.Text;
+            Game gameRemoved;
+            var question = from game in context.Games
+                        where game.EAN == remove
+                        select game;
+            //Frågar databasen om det finns något objekt som har samma EAN som värdet i remove
+            gameRemoved = question.FirstOrDefault();
+
+            if(gameRemoved != null)
+            {
+                context.Games.Remove(gameRemoved);
+                context.SaveChanges();
+                UpdateCombobox();
+                TBSearchWord.Clear();
+            }
+            else
+            {
+                MessageBox.Show("The game doesn't exist");
+                TBSearchWord.Clear();
+            }
         }
     }
 }
