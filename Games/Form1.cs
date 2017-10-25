@@ -89,11 +89,11 @@ namespace Games
         {
             Game theGame;
             string searchword = TBSearchWord.Text;
+            //Frågar databasen om det finns något objekt som har samma EAN som searchword och ger isåfall det värdet till thegame
             var question = from game in context.Games
                         where game.EAN == searchword
                         select game;
             theGame = question.FirstOrDefault();
-            //Frågar databasen om det finns något objekt som har samma EAN som searchword och ger isåfall det värdet till thegame
             if (theGame != null)
             {
                 textBox1.Text = "Name: " + theGame.Name + " EAN: " + theGame.EAN + " Release date: " + theGame.Release_date;
@@ -106,26 +106,58 @@ namespace Games
 
         private void buttonDevelopAdd_Click(object sender, EventArgs e)
         {
+            //Kopplar en "developer" till ett "game"
             Developer developer = (Developer)comboBox1.SelectedItem;
             var q = from a in context.Developers
                     where a.Name == developer.Name
                     select a;
             q.First().Games.Add((Game)comboBox2.SelectedItem);
-
+            //Sparar databasen
             context.SaveChanges();
+            LBPDevelopedBy.Items.Clear();
+            foreach(var developers in context.Developers)
+            {
+                if (developers.Games.Count > 0)
+                {
+                    string developedByString = developers.Name + " developed ";
+                    foreach (var games in developers.Games)
+                    {
+                        developedByString += games.Name + ", ";
+                    }
+                    LBPDevelopedBy.Items.Add(developedByString);
+                }
+                else
+                {
+                    LBPDevelopedBy.Items.Add(developers.Name + " developed nothing.");
+                }
+            }
         }
 
         private void buttonPlayingAdd_Click(object sender, EventArgs e)
         {
             Player player = (Player)comboBox4.SelectedItem;
+            //Frågar databasen om det finns något PNR som matchar players.PNR och väljer då det det objektet som matchar player.PNR
             var q = from a in context.Players
                     where a.PNR == player.PNR
                     select a;
-            q.Single().Games.Add((Game)comboBox3.SelectedItem);
+            q.First().Games.Add((Game)comboBox3.SelectedItem);
             context.SaveChanges();
+            LBPlaying.Items.Clear();
             foreach (var players in context.Players)
             {
-                LBPlaying.Items.Add(players.Name + " plays " + players.Games.FirstOrDefault().Name);
+                if (players.Games.Count > 0)
+                {
+                    string playingString = players.Name + " plays ";
+                    foreach (var games in players.Games)
+                    {
+                        playingString += games.Name + ", ";
+                    }
+                    LBPlaying.Items.Add(playingString);
+                }
+                else
+                {
+                    LBPlaying.Items.Add(players.Name + " plays nothing");
+                }
             }
         }
         private void buttonShowAll_Click(object sender, EventArgs e)
