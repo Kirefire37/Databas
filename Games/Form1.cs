@@ -40,10 +40,10 @@ namespace Games
             comboBox2.DataSource = (from q in context.Games select q).ToList();
             comboBox2.DisplayMember = "Name";
             comboBox3.DisplayMember = "Name";
-            comboBox4.DataSource = (from p in context.Players select p).ToList();
+            comboBox4.DataSource = (from q in context.Players select q).ToList();
             comboBox4.DisplayMember = "PNR";
             comboBox1.DataSource = (from q in context.Developers select q).ToList();
-            comboBox1.DisplayMember = "name";
+            comboBox1.DisplayMember = "Name";
             //Combobox:arna har inget skrivet i dem från början
             comboBox1.SelectedItem = null;
             comboBox2.SelectedItem = null;
