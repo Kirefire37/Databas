@@ -20,27 +20,30 @@ namespace Games
 
         private void ButtonDevelopersAdd_Click(object sender, EventArgs e)
         {
+            foreach (var developer2 in context.Developers)
+            {
+
+
+                if (TBDevelopername.Text == developer2.Name)
+                {
+                    MessageBox.Show("It already exist a developer with this name");
+                    return;
+                }
+                else
+                {
+                }
+            }
             //Skapar en ny developer av klassen developer
-            string developerName = TBDevelopername.Text;
-            string developerCountry = TBDeveloperCountry.Text;
             Developer developer = new Developer();
             //Ger värden till det nya objektet 
-            developer.Name = developerName;
-            developer.Country = developerCountry;
+            developer.Name = TBDevelopername.Text;
+            developer.Country = TBDeveloperCountry.Text;
             //Lägger till det nya objektet i databasen och sparar
             context.Developers.Add(developer);
-            TBDevelopername.Clear();
-            TBDeveloperCountry.Clear();
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("It already exist a developer with this name");
-                return;
-            }
+            context.SaveChanges();
             UpdateCombobox();
+            TBDevelopername.Clear();
+            TBDevelopername.Clear();
         }
 
         private void UpdateCombobox()
@@ -63,56 +66,52 @@ namespace Games
 
         private void ButtonGamesAdd_Click(object sender, EventArgs e)
         {
-            string gameName = TBGamename.Text;
-            string EAN = TBGamesEAN.Text;
-            DateTime releaseDate = datetimeGamesReleasedate.Value;
-            Game game = new Game();
+            foreach (var games in context.Games)
+            {
+                if(TBGamesEAN.Text == games.EAN)
+                {
+                    MessageBox.Show("It already exists a game with this number as an EAN");
+                    return;
+                }
+                else
+                {
+                }
+            }
             //Skapar ett "game" av klassen Game
-            game.Name = gameName;
-            game.EAN = EAN;
-            game.Release_date = releaseDate;
+            Game game = new Game();
             //Ger objektet värden
+            game.Name = TBGamename.Text;
+            game.EAN = TBGamesEAN.Text;
+            game.Release_date = datetimeGamesReleasedate.Value;
+            //Lägger till objektet i databasen och sparar
+            context.Games.Add(game);
+            context.SaveChanges();
+            UpdateCombobox();
             TBGamename.Clear();
             TBGamesEAN.Clear();
-            context.Games.Add(game);
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("It already exists a game with this number as an EAN");
-                return;
-            }
-
-            //Lägger till objektet i databasen och sparar
-            UpdateCombobox();
         }
 
         private void ButtonPlayersAdd_Click(object sender, EventArgs e)
         {
-            string playerName = TBPlayersName.Text;
-            string playerPNR = TBPlayersPNR.Text;
-            Player player = new Player();
+            //Kollar om personnummret man skrev in i textbboxen redan finns i databasen
+            foreach (var player2 in context.Players)
+            {
+                if (TBPlayersPNR.Text == player2.PNR)
+                {
+                    MessageBox.Show("A person with this personal identity number does already exist");
+                    return;
+                }
+                else
+                {
+                }
+            }
             //Skapar en "player" av klassen Player
-            player.Name = playerName;
-            player.PNR = playerPNR;
             //Ger objektet värden
+            Player player = new Player();
+            player.Name = TBPlayersName.Text;
+            player.PNR = TBPlayersPNR.Text;
             context.Players.Add(player);
-            TBPlayersName.Clear();
-            TBPlayersPNR.Clear();
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("A person with this personal identity number does already exist");
-                TBPlayersPNR.Clear();
-                return;
-            }
-
-            //Lägger till objektet i databasen och sparar
+            context.SaveChanges();
             UpdateCombobox();
         }
 
