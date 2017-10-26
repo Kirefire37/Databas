@@ -20,16 +20,24 @@ namespace Games
 
         private void ButtonDevelopersAdd_Click(object sender, EventArgs e)
         {
+            //Skapar en ny developer av klassen developer
             string developerName = TBDevelopername.Text;
             string developerCountry = TBDeveloperCountry.Text;
             Developer developer = new Developer();
-            //Skapar en ny developer av klassen developer
+            //Ger värden till det nya objektet 
             developer.Name = developerName;
             developer.Country = developerCountry;
-            //Ger värden till det nya objektet 
-            context.Developers.Add(developer);
-            context.SaveChanges();
             //Lägger till det nya objektet i databasen och sparar
+            context.Developers.Add(developer);
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("It already exist a developer with this name");
+                throw;
+            }
             UpdateCombobox();
         }
 
@@ -65,7 +73,16 @@ namespace Games
             TBGamename.Clear();
             TBGamesEAN.Clear();
             context.Games.Add(game);
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("It already exists a game with this number as an EAN");
+                return;
+            }
+
             //Lägger till objektet i databasen och sparar
             UpdateCombobox();
         }
@@ -80,7 +97,17 @@ namespace Games
             player.PNR = playerPNR;
             //Ger objektet värden
             context.Players.Add(player);
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("A person with this personal identity number does already exist");
+                TBPlayersPNR.Clear();
+                return;
+            }
+
             //Lägger till objektet i databasen och sparar
             UpdateCombobox();
         }
@@ -100,7 +127,7 @@ namespace Games
             }
             else
             {
-                MessageBox.Show("Finns ej");
+                MessageBox.Show("Doesn't exist");
             }
         }
 
@@ -140,6 +167,7 @@ namespace Games
             var q = from a in context.Players
                     where a.PNR == player.PNR
                     select a;
+            //Lägger till var q i databasen
             q.First().Games.Add((Game)comboBox3.SelectedItem);
             context.SaveChanges();
             LBPlaying.Items.Clear();
