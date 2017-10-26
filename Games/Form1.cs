@@ -29,6 +29,8 @@ namespace Games
             developer.Country = developerCountry;
             //Lägger till det nya objektet i databasen och sparar
             context.Developers.Add(developer);
+            TBDevelopername.Clear();
+            TBDeveloperCountry.Clear();
             try
             {
                 context.SaveChanges();
@@ -36,7 +38,7 @@ namespace Games
             catch (Exception)
             {
                 MessageBox.Show("It already exist a developer with this name");
-                throw;
+                return;
             }
             UpdateCombobox();
         }
@@ -97,6 +99,8 @@ namespace Games
             player.PNR = playerPNR;
             //Ger objektet värden
             context.Players.Add(player);
+            TBPlayersName.Clear();
+            TBPlayersPNR.Clear();
             try
             {
                 context.SaveChanges();
