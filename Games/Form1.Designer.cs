@@ -76,6 +76,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.GBGames.SuspendLayout();
             this.GBDevelopers.SuspendLayout();
             this.GBPlayers.SuspendLayout();
@@ -431,7 +432,7 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(219, 198);
+            this.buttonDelete.Location = new System.Drawing.Point(220, 217);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(64, 23);
             this.buttonDelete.TabIndex = 7;
@@ -441,7 +442,7 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(326, 172);
+            this.buttonSearch.Location = new System.Drawing.Point(326, 191);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(75, 20);
             this.buttonSearch.TabIndex = 8;
@@ -491,14 +492,14 @@
             // 
             // TBSearchWord
             // 
-            this.TBSearchWord.Location = new System.Drawing.Point(220, 172);
+            this.TBSearchWord.Location = new System.Drawing.Point(220, 191);
             this.TBSearchWord.Name = "TBSearchWord";
             this.TBSearchWord.Size = new System.Drawing.Size(100, 20);
             this.TBSearchWord.TabIndex = 9;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(415, 172);
+            this.textBox1.Location = new System.Drawing.Point(407, 191);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(408, 20);
@@ -532,11 +533,21 @@
             this.label17.TabIndex = 20;
             this.label17.Text = "Players:";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(220, 172);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(99, 13);
+            this.label18.TabIndex = 21;
+            this.label18.Text = "Search for an EAN:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 686);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -623,6 +634,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
     }
 }
 
