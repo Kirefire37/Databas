@@ -16,17 +16,21 @@ namespace Games
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateCombobox();
+            Update();
         }
 
         private void ButtonDevelopersAdd_Click(object sender, EventArgs e)
         {
             foreach (var developer2 in context.Developers)
             {
-
-
                 if (TBDevelopername.Text == developer2.Name)
                 {
                     MessageBox.Show("It already exist a developer with this name");
+                    return;
+                }
+                else if(TBDevelopername.Text == "")
+                {
+                    MessageBox.Show("There is no name");
                     return;
                 }
                 else
@@ -43,9 +47,46 @@ namespace Games
             context.SaveChanges();
             UpdateCombobox();
             TBDevelopername.Clear();
-            TBDevelopername.Clear();
+            TBDeveloperCountry.Clear();
         }
 
+        private void Update()
+        {
+            LBPlaying.Items.Clear();
+            LBPDevelopedBy.Items.Clear();
+            foreach (var players in context.Players)
+            {
+                if (players.Games.Count > 0)
+                {
+                    string playingString = players.Name + " plays ";
+                    foreach (var games in players.Games)
+                    {
+                        playingString += games.Name + ", ";
+                    }
+                    LBPlaying.Items.Add(playingString);
+                }
+                else
+                {
+                    LBPlaying.Items.Add(players.Name + " plays nothing");
+                }
+            }
+            foreach (var developers in context.Developers)
+            {
+                if (developers.Games.Count > 0)
+                {
+                    string developedByString = developers.Name + " developed ";
+                    foreach (var games in developers.Games)
+                    {
+                        developedByString += games.Name + ", ";
+                    }
+                    LBPDevelopedBy.Items.Add(developedByString);
+                }
+                else
+                {
+                    LBPDevelopedBy.Items.Add(developers.Name + " developed nothing.");
+                }
+            }
+        }
         private void UpdateCombobox()
         {
             //Får combobox:arna att visa objekten i databasen
@@ -73,6 +114,11 @@ namespace Games
                     MessageBox.Show("It already exists a game with this number as an EAN");
                     return;
                 }
+                else if(TBGamename.Text == "" || TBGamesEAN.Text == "")
+                {
+                    MessageBox.Show("There is no name or no EAN.");
+                    return;
+                }
                 else
                 {
                 }
@@ -93,12 +139,23 @@ namespace Games
 
         private void ButtonPlayersAdd_Click(object sender, EventArgs e)
         {
-            //Kollar om personnummret man skrev in i textbboxen redan finns i databasen
+            //Kollar om personnummret man skrev in i textboxen redan finns i databasen
             foreach (var player2 in context.Players)
             {
                 if (TBPlayersPNR.Text == player2.PNR)
                 {
                     MessageBox.Show("A person with this personal identity number does already exist");
+                    return;
+                }
+
+                else if(TBPlayersPNR.Text == "" || TBPlayersName.Text == "")
+                {
+                    MessageBox.Show("There is no name or no EAN");
+                    return;
+                }
+                else if(TBPlayersPNR.TextLength != 10)
+                {
+                    MessageBox.Show("There must be 10 digits.");
                     return;
                 }
                 else
@@ -113,6 +170,8 @@ namespace Games
             context.Players.Add(player);
             context.SaveChanges();
             UpdateCombobox();
+            TBPlayersName.Clear();
+            TBPlayersPNR.Clear();
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -196,8 +255,6 @@ namespace Games
             LBGames.Items.Clear();
             LBDevelopers.Items.Clear();
             LBPlayers.Items.Clear();
-            LBPlaying.Items.Clear();
-            LBPDevelopedBy.Items.Clear();
             //Skriver ut all data i databasen i listor
             foreach (var games in context.Games)
             {
@@ -205,12 +262,20 @@ namespace Games
             }
             foreach (var dev in context.Developers)
             {
-                LBDevelopers.Items.Add(dev.Name + " from " + dev.Country);
+                if (dev.Country != "")
+                {
+                    LBDevelopers.Items.Add(dev.Name + " from " + dev.Country);
+                }
+                else
+                {
+                    LBDevelopers.Items.Add(dev.Name);
+                }
             }
             foreach (var player in context.Players)
             {
                 LBPlayers.Items.Add("Name:   " + player.Name+ "  Player PNR:  " + player.PNR);
             }
+            Update();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -235,6 +300,8 @@ namespace Games
                 MessageBox.Show("The game doesn't exist");
                 TBSearchWord.Clear();
             }
+            Update();
+            TBSearchWord.Clear();
         }
     }
 }
